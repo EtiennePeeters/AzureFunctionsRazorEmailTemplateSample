@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <AddRazorSupportForMvc>True</AddRazorSupportForMvc>
+    <RazorCompileOnBuild>True</RazorCompileOnBuild>
+    <RazorCompileOnPublish>True</RazorCompileOnPublish>
+    <RazorEmbeddedResource>True</RazorEmbeddedResource>
+    <PreserveCompilationContext>True</PreserveCompilationContext>
+    <MvcRazorExcludeRefAssembliesFromPublish>False</MvcRazorExcludeRefAssembliesFromPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SendGrid" Version="3.0.0" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.9" />
+    <PackageReference Include="SendGrid" Version="9.21.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <OutputFiles Include="$(OutDir)Views\*"></OutputFiles>
+    </ItemGroup>
+    <Move SourceFiles="@(OutputFiles)" DestinationFolder="$(OutDir)bin" OverwriteReadOnlyFiles="true"></Move>
+  </Target>
+</Project>

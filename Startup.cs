@@ -1,5 +1,4 @@
 ﻿using AzureFunctionsRazorEmailTemplateSample;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -18,7 +17,6 @@ namespace AzureFunctionsRazorEmailTemplateSample
             var compiledViewAssembly = Assembly.LoadFile(Path.Combine(executionPath, "AzureFunctionsRazorEmailTemplateSample.Views.dll"));
             builder.Services
                 .AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>()
-                .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
                 .AddScoped<RazorViewToStringRenderer>()
                 .AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>()
                 .AddMvcCore()

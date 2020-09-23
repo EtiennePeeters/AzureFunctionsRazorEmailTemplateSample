@@ -28,10 +28,4 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <ItemGroup>
-      <OutputFiles Include="$(OutDir)Views\*"></OutputFiles>
-    </ItemGroup>
-    <Move SourceFiles="@(OutputFiles)" DestinationFolder="$(OutDir)bin" OverwriteReadOnlyFiles="true"></Move>
-  </Target>
 </Project>
